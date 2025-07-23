@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "DF+e+tTbc50=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\EASV\\RiderProjects\\Instruks\\Application\\Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\EASV\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
+    "C:\\Users\\EASV\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\EASV\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
+    "C:\\Users\\EASV\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
