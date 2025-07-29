@@ -19,9 +19,6 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(
     "Data source=../Infrastructure/db.db"
 ));
 
-builder.Services.AddScoped<ProductRepository>();
-builder.Services.AddScoped<OrderRepository>();
-
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 

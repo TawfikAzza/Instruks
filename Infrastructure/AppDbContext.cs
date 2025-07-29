@@ -5,28 +5,26 @@ namespace Infrastructure;
 
 public class AppDbContext : DbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+    public DbSet<Category> CategorieTable { get; set; }
+    public DbSet<Instruks> InstruksTable { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder) {
+        base.OnModelCreating(modelBuilder);
+
+        // One-to-many: Category → Instruks
+        modelBuilder.Entity<Category>()
+            .HasMany(c => c.InstruksItems)
+            .WithOne(i => i.Category)
+            .HasForeignKey(i => i.CategoryId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Self-referencing Category → Parent Category
+        modelBuilder.Entity<Category>()
+            .HasOne<Category>()
+            .WithMany()
+            .HasForeignKey(c => c.ParentId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
-
-    // Define DbSets for your entities here
-    // public DbSet<Product> Products { get; set; }
-    
-    protected override void OnModelCreating(ModelBuilder modelBuilder)  {
-        modelBuilder.Entity<Product>()
-            .HasOne(p => p.Order)
-            .WithMany(o => o.products)
-            .HasForeignKey(p => p.OrderId)
-            .OnDelete(DeleteBehavior.Cascade); // 👈 required for cascade delete
-
-        modelBuilder.Entity<Product>()
-            .Property(p => p.Id)
-            .ValueGeneratedOnAdd();
-
-        modelBuilder.Entity<Order>()
-            .Property(o => o.Id)
-            .ValueGeneratedOnAdd();
-    } 
-    
-    public DbSet<Product> ProductTable { get; set; }
-    public DbSet<Order> OrderTable { get; set; }
 }

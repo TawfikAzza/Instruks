@@ -17,5 +17,11 @@ public class AutoMapperProfile : Profile
         CreateMap<PostOrderDTO, Order>();
         CreateMap<UpdateOrderDTO, Order>();
         CreateMap<Order, OrderResultDTO>();
+        
+        // Instruks Mappings
+        CreateMap<Instruks, InstruksDto>().ReverseMap();
+
+        // Category Mappings
+        CreateMap<Category, CategoryDto>().ReverseMap();
     }
 }

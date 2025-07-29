@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.DependencyResolver;
@@ -7,7 +8,7 @@ public static class DependencyResolverService
 {
     public static void RegisterApplicationLayer(IServiceCollection services)
     {
-        services.AddScoped<IProductService, ProductService>();
-        services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<IInstruksService, InstruksService>();
+        services.AddScoped<ICategoryService, CategoryService>();
     }
 }
