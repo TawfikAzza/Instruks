@@ -14,26 +14,26 @@ public class CategoryRepository : ICategoryRepository
     }
 
     public async Task<List<Category>> GetAllAsync() =>
-        await _context.CategorieTable.ToListAsync();
+        await _context.CategoryTable.ToListAsync();
 
     public async Task<Category?> GetByIdAsync(Guid id) =>
-        await _context.CategorieTable.FindAsync(id);
+        await _context.CategoryTable.FindAsync(id);
 
     public async Task AddAsync(Category category)
     {
-        _context.CategorieTable.Add(category);
+        _context.CategoryTable.Add(category);
         await _context.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(Category category)
     {
-        _context.CategorieTable.Update(category);
+        _context.CategoryTable.Update(category);
         await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Category category)
     {
-        _context.CategorieTable.Remove(category);
+        _context.CategoryTable.Remove(category);
         await _context.SaveChangesAsync();
     }
 }

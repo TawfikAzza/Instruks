@@ -28,3 +28,4 @@ C:\Users\EASV\RiderProjects\Instruks\Application\obj\Debug\net8.0\Application.dl
 C:\Users\EASV\RiderProjects\Instruks\Application\obj\Debug\net8.0\refint\Application.dll
 C:\Users\EASV\RiderProjects\Instruks\Application\obj\Debug\net8.0\Application.pdb
 C:\Users\EASV\RiderProjects\Instruks\Application\obj\Debug\net8.0\ref\Application.dll
+C:\Users\EASV\RiderProjects\Instruks\Application\obj\Debug\net8.0\Application.sourcelink.json
