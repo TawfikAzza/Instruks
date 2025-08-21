@@ -57,7 +57,15 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey))
         };
     });
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -70,7 +78,8 @@ using (var scope = app.Services.CreateScope())  {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     DatabaseInitializer.EnsureCreated(dbContext);
 }
-app.UseHttpsRedirection();
+app.UseCors("AllowAngularApp");
+//app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
