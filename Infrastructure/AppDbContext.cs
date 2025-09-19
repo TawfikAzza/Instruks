@@ -10,8 +10,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Category> CategoryTable { get; set; }
     public DbSet<Instruks> InstruksTable { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
+    protected override void OnModelCreating(ModelBuilder modelBuilder) {
         base.OnModelCreating(modelBuilder); // 👈 Required for Identity
 
         modelBuilder.Entity<Category>()

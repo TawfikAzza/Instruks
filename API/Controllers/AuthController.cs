@@ -7,8 +7,7 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AuthController : ControllerBase
-{
+public class AuthController : ControllerBase {
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly ITokenService _tokenService;
@@ -16,21 +15,18 @@ public class AuthController : ControllerBase
     public AuthController(
         UserManager<IdentityUser> userManager,
         SignInManager<IdentityUser> signInManager,
-        ITokenService tokenService)
-    {
+        ITokenService tokenService) {
         _userManager = userManager;
         _signInManager = signInManager;
         _tokenService = tokenService;
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterDto dto)
-    {
+    public async Task<IActionResult> Register([FromBody] RegisterDto dto) {
         if (dto.Role != "Doctor" && dto.Role != "Nurse")
             return BadRequest("Invalid role.");
 
-        var user = new IdentityUser
-        {
+        var user = new IdentityUser {
             UserName = dto.Email,
             Email = dto.Email
         };
@@ -44,8 +40,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginDto dto)
-    {
+    public async Task<IActionResult> Login([FromBody] LoginDto dto) {
         Console.WriteLine("TEST TEST TEST");
         var user = await _userManager.FindByEmailAsync(dto.Email);
         if (user == null) return Unauthorized("Invalid credentials.");

@@ -7,28 +7,23 @@ using System.Text;
 
 namespace Infrastructure.Auth;
 
-public interface ITokenService
-{
+public interface ITokenService {
     Task<string> GenerateTokenAsync(IdentityUser user);
 }
 
-public class TokenService : ITokenService
-{
+public class TokenService : ITokenService {
     private readonly JwtSettings _settings;
     private readonly UserManager<IdentityUser> _userManager;
 
-    public TokenService(IOptions<JwtSettings> options, UserManager<IdentityUser> userManager)
-    {
+    public TokenService(IOptions<JwtSettings> options, UserManager<IdentityUser> userManager) {
         _settings = options.Value;
         _userManager = userManager;
     }
 
-    public async Task<string> GenerateTokenAsync(IdentityUser user)
-    {
+    public async Task<string> GenerateTokenAsync(IdentityUser user) {
         var userRoles = await _userManager.GetRolesAsync(user);
 
-        var claims = new List<Claim>
-        {
+        var claims = new List<Claim> {
             new Claim(JwtRegisteredClaimNames.Sub, user.Id),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())

@@ -4,12 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public class CategoryRepository : ICategoryRepository
-{
+public class CategoryRepository : ICategoryRepository {
     private readonly AppDbContext _context;
 
-    public CategoryRepository(AppDbContext context)
-    {
+    public CategoryRepository(AppDbContext context) {
         _context = context;
     }
 
@@ -19,20 +17,17 @@ public class CategoryRepository : ICategoryRepository
     public async Task<Category?> GetByIdAsync(Guid id) =>
         await _context.CategoryTable.FindAsync(id);
 
-    public async Task AddAsync(Category category)
-    {
+    public async Task AddAsync(Category category) {
         _context.CategoryTable.Add(category);
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(Category category)
-    {
+    public async Task UpdateAsync(Category category) {
         _context.CategoryTable.Update(category);
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(Category category)
-    {
+    public async Task DeleteAsync(Category category) {
         _context.CategoryTable.Remove(category);
         await _context.SaveChangesAsync();
     }
