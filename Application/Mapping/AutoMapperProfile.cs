@@ -23,5 +23,7 @@ public class AutoMapperProfile : Profile
 
         // Category Mappings
         CreateMap<Category, CategoryDto>().ReverseMap();
+        
+        CreateMap<Instruks, InstruksDto>().ReverseMap();
     }
 }

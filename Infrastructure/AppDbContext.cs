@@ -11,7 +11,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Instruks> InstruksTable { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
-        base.OnModelCreating(modelBuilder); // 👈 Required for Identity
+        base.OnModelCreating(modelBuilder); 
 
         modelBuilder.Entity<Category>()
             .HasMany(c => c.InstruksItems)
@@ -24,5 +24,13 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
             .WithMany()
             .HasForeignKey(c => c.ParentId)
             .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<Instruks>(b =>
+        {
+            b.HasIndex(x => new { x.DocumentId, x.VersionNumber }).IsUnique();
+            b.HasIndex(x => new { x.CategoryId, x.IsLatest }); 
+            b.Property(x => x.IsLatest).HasDefaultValue(true);
+        });
+
     }
 }

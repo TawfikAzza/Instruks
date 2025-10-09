@@ -73,4 +73,14 @@ public class InstruksController : ControllerBase
             return NotFound();
         return NoContent();
     }
+    
+    // POST: api/instruks/{id}/version
+    [HttpPost("{id}/version")]
+    [Authorize(Roles = "Doctor")]
+    public async Task<IActionResult> CreateVersion(Guid id, [FromBody] InstruksDto dto)
+    {
+        var created = await _instruksService.CreateNewVersionAsync(id, dto);
+        if (created is null) return NotFound();
+        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+    }
 }

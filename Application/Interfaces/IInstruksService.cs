@@ -8,6 +8,7 @@ public interface IInstruksService
     Task<InstruksDto?> GetByIdAsync(Guid id);
     Task<InstruksDto> CreateAsync(InstruksDto dto);
     Task<bool> UpdateAsync(Guid id, InstruksDto dto);
+    Task<InstruksDto?> CreateNewVersionAsync(Guid id, InstruksDto dto); // bump version
     Task<bool> DeleteAsync(Guid id);
     Task<IEnumerable<InstruksDto>> GetByCategoryAsync(Guid categoryId);
 }
