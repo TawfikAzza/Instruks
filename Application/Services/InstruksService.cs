@@ -22,6 +22,13 @@ public class InstruksService : IInstruksService
         var items = await _repository.GetAllAsync();
         return _mapper.Map<List<InstruksDto>>(items);
     }
+    // Application/Services/InstruksService.cs
+    public async Task<IEnumerable<InstruksDto>> GetByCategoryAsync(Guid categoryId)
+    {
+        var q = await _repository.GetByCategoryAsync(categoryId);
+
+        return _mapper.Map<IEnumerable<InstruksDto>>(q);
+    }
 
     public async Task<InstruksDto?> GetByIdAsync(Guid id)
     {
@@ -42,13 +49,15 @@ public class InstruksService : IInstruksService
 
     public async Task<bool> UpdateAsync(Guid id, InstruksDto dto)
     {
-        var entity = await _repository.GetByIdAsync(id);
-        if (entity == null) return false;
+        var incoming = new Instruks
+        {
+            Title       = dto.Title,
+            Description = dto.Description,
+            Content     = dto.Content,
+            CategoryId  = dto.CategoryId
+        };
 
-        _mapper.Map(dto, entity);
-        entity.UpdatedAt = DateTime.UtcNow;
-
-        await _repository.UpdateAsync(entity);
+        var updated = await _repository.UpdateAsync(id, incoming);
         return true;
     }
 

@@ -9,4 +9,5 @@ public interface IInstruksService
     Task<InstruksDto> CreateAsync(InstruksDto dto);
     Task<bool> UpdateAsync(Guid id, InstruksDto dto);
     Task<bool> DeleteAsync(Guid id);
+    Task<IEnumerable<InstruksDto>> GetByCategoryAsync(Guid categoryId);
 }

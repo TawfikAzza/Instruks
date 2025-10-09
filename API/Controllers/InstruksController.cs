@@ -24,7 +24,14 @@ public class InstruksController : ControllerBase
         var items = await _instruksService.GetAllAsync();
         return Ok(items);
     }
-
+    // API/Controllers/InstruksController.cs
+    [HttpGet("by-category/{categoryId:guid}")]
+    [Authorize] // both Doctor & Nurse can read
+    public async Task<IActionResult> GetByCategory(Guid categoryId)
+    {
+        var items = await _instruksService.GetByCategoryAsync(categoryId);
+        return Ok(items);
+    }
     // GET: api/instruks/{id}
     [HttpGet("{id}")]
     [Authorize]
