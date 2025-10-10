@@ -14,4 +14,5 @@ public interface IInstruksRepository
     Task DeleteAsync(Instruks instruks);
     Task<IEnumerable<Instruks>> GetByCategoryAsync(Guid categoryId);
     Task SaveChangesAsync();
+    Task<Instruks?> GetWithCategoryAsync(Guid id);
 }

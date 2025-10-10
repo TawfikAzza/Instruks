@@ -10,10 +10,11 @@ namespace API.Controllers;
 public class InstruksController : ControllerBase
 {
     private readonly IInstruksService _instruksService;
-
-    public InstruksController(IInstruksService instruksService)
+    private readonly IInstruksPdfService _pdfService;
+    public InstruksController(IInstruksService instruksService,IInstruksPdfService pdfService)
     {
         _instruksService = instruksService;
+        _pdfService = pdfService;
     }
 
     // GET: api/instruks
@@ -82,5 +83,13 @@ public class InstruksController : ControllerBase
         var created = await _instruksService.CreateNewVersionAsync(id, dto);
         if (created is null) return NotFound();
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+    }
+    [HttpGet("{id:guid}/pdf")]
+    [Authorize] // optional
+    public async Task<IActionResult> GetPdf(Guid id)
+    {
+        var bytes = await _pdfService.GeneratePdfAsync(id);
+        var fileName = $"instruks-{id:N}.pdf";
+        return File(bytes, "application/pdf", fileName);
     }
 }

@@ -53,9 +53,21 @@
               "target": "Package",
               "version": "[14.0.0, )"
             },
+            "HtmlAgilityPack": {
+              "target": "Package",
+              "version": "[1.12.4, )"
+            },
+            "HtmlSanitizer": {
+              "target": "Package",
+              "version": "[9.0.886, )"
+            },
             "Microsoft.Extensions.DependencyInjection.Abstractions": {
               "target": "Package",
               "version": "[8.0.2, )"
+            },
+            "QuestPDF": {
+              "target": "Package",
+              "version": "[2022.12.15, )"
             }
           },
           "imports": [

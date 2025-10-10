@@ -69,5 +69,12 @@ public class InstruksRepository : IInstruksRepository
             .OrderByDescending(i => i.UpdatedAt)
             .ToListAsync();
     }
+    public async Task<Instruks?> GetWithCategoryAsync(Guid id)
+    {
+        return await _context.InstruksTable
+            .AsNoTracking()
+            .Include(i => i.Category)
+            .FirstOrDefaultAsync(i => i.Id == id);
+    }
     public Task SaveChangesAsync() => _context.SaveChangesAsync();
 }
