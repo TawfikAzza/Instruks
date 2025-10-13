@@ -8,22 +8,8 @@ public class AutoMapperProfile : Profile
 {
     public AutoMapperProfile()
     {
-        // Product Mappings
-        CreateMap<PostProductDTO, Product>();
-        CreateMap<UpdateProductDTO, Product>();
-        CreateMap<Product, ProductResultDTO>();
-
-        // Order Mappings
-        CreateMap<PostOrderDTO, Order>();
-        CreateMap<UpdateOrderDTO, Order>();
-        CreateMap<Order, OrderResultDTO>();
-        
-        // Instruks Mappings
-        CreateMap<Instruks, InstruksDto>().ReverseMap();
-
-        // Category Mappings
+        // Keep only what the app actually uses now
         CreateMap<Category, CategoryDto>().ReverseMap();
-        
         CreateMap<Instruks, InstruksDto>().ReverseMap();
     }
 }

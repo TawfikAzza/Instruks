@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Domain;
+namespace Domain;
 
 public class Instruks
 {
