@@ -1,8 +1,23 @@
-﻿namespace Application.DTOs.Auth;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class RegisterDto
+namespace Application.DTOs.Auth
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
-    public string Role { get; set; }  // Should be "Doctor" or "Nurse"
+    /// <summary>
+    /// Registration payload. Role must be either <c>Doctor</c> or <c>Nurse</c>.
+    /// </summary>
+    public class RegisterDto
+    {
+        /// <summary>Email address for the new account.</summary>
+        [Required, EmailAddress, StringLength(256)]
+        public string Email { get; set; } = string.Empty;
+
+        /// <summary>Password for the new account.</summary>
+        [Required, StringLength(128, MinimumLength = 8)]
+        public string Password { get; set; } = string.Empty;
+
+        /// <summary>Role name (Doctor or Nurse).</summary>
+        [Required]
+        [RegularExpression("^(Doctor|Nurse)$", ErrorMessage = "Role must be 'Doctor' or 'Nurse'.")]
+        public string Role { get; set; } = "Nurse";
+    }
 }

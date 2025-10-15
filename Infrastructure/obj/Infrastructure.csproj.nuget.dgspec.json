@@ -53,6 +53,10 @@
               "target": "Package",
               "version": "[14.0.0, )"
             },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
             "HtmlAgilityPack": {
               "target": "Package",
               "version": "[1.12.4, )"
@@ -60,6 +64,10 @@
             "HtmlSanitizer": {
               "target": "Package",
               "version": "[9.0.886, )"
+            },
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.3.0, )"
             },
             "Microsoft.Extensions.DependencyInjection.Abstractions": {
               "target": "Package",

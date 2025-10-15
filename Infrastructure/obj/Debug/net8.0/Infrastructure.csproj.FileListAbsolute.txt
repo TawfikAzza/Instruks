@@ -33,3 +33,4 @@ C:\Users\EASV\RiderProjects\Instruks\Infrastructure\obj\Debug\net8.0\refint\Infr
 C:\Users\EASV\RiderProjects\Instruks\Infrastructure\obj\Debug\net8.0\Infrastructure.pdb
 C:\Users\EASV\RiderProjects\Instruks\Infrastructure\obj\Debug\net8.0\ref\Infrastructure.dll
 C:\Users\EASV\RiderProjects\Instruks\Infrastructure\obj\Debug\net8.0\Infrastructure.sourcelink.json
+C:\Users\EASV\RiderProjects\Instruks\Infrastructure\bin\Debug\net8.0\Services\images\idun-logo.png

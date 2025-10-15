@@ -8,18 +8,21 @@ using Domain;
 using FluentAssertions;
 using Moq;
 using InstruksTests.TestHelpers;
+using Application.Interfaces.Security;
 
 namespace InstruksTests.Category;
 
 public class CategoryServiceTests
 {
     private readonly Mock<ICategoryRepository> _repo = new();
+    private readonly Mock<ICurrentUser> _user = new(); 
     private readonly IMapper _mapper = MapperFactory.Create();
     private readonly ICategoryService _sut;
 
     public CategoryServiceTests()
     {
-        _sut = new CategoryService(_repo.Object, _mapper);
+        _user.Setup(u => u.IsDoctor).Returns(true);                
+        _sut = new CategoryService(_repo.Object, _mapper, _user.Object); 
     }
 
     [Fact]
@@ -72,7 +75,8 @@ public class CategoryServiceTests
 
         _repo.Setup(r => r.AddAsync(It.IsAny<Domain.Category>()))
              .Returns(Task.CompletedTask);
-
+        _repo.Setup(r => r.SaveChangesAsync())                    
+            .Returns(Task.CompletedTask);
         var created = await _sut.CreateAsync(dto);
 
         created.Should().NotBeNull();
@@ -80,6 +84,7 @@ public class CategoryServiceTests
         created.Name.Should().Be("Radiology");
 
         _repo.Verify(r => r.AddAsync(It.Is<Domain.Category>(c => c.Name == "Radiology" && c.Id != Guid.Empty)), Times.Once);
+        _repo.Verify(r => r.SaveChangesAsync(), Times.Once); 
     }
 
     [Fact]
@@ -101,12 +106,14 @@ public class CategoryServiceTests
 
         _repo.Setup(r => r.GetByIdAsync(id)).ReturnsAsync(entity);
         _repo.Setup(r => r.UpdateAsync(entity)).Returns(Task.CompletedTask);
-
+        _repo.Setup(r => r.SaveChangesAsync()).Returns(Task.CompletedTask);
+        
         var ok = await _sut.UpdateAsync(id, new CategoryDto { Id = id, Name = "New" });
 
         ok.Should().BeTrue();
         entity.Name.Should().Be("New");
         _repo.Verify(r => r.UpdateAsync(entity), Times.Once);
+        _repo.Verify(r => r.SaveChangesAsync(), Times.Once);
     }
 
     [Fact]
@@ -127,10 +134,12 @@ public class CategoryServiceTests
 
         _repo.Setup(r => r.GetByIdAsync(entity.Id)).ReturnsAsync(entity);
         _repo.Setup(r => r.DeleteAsync(entity)).Returns(Task.CompletedTask);
-
+        _repo.Setup(r => r.SaveChangesAsync()).Returns(Task.CompletedTask);
+        
         var ok = await _sut.DeleteAsync(entity.Id);
 
         ok.Should().BeTrue();
         _repo.Verify(r => r.DeleteAsync(entity), Times.Once);
+        _repo.Verify(r => r.SaveChangesAsync(), Times.Once); 
     }
 }

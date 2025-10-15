@@ -7,18 +7,25 @@ using Domain;
 using FluentAssertions;
 using Moq;
 using InstruksTests.TestHelpers; 
+using Application.Interfaces.Security;     
+using Application.Interfaces.Content;
 
 namespace InstruksTests.Instruks;
 
 public class InstruksServiceTests
 {
     private readonly Mock<IInstruksRepository> _repo = new();
+    private readonly Mock<ICurrentUser> _user = new();           
+    private readonly Mock<IHtmlSanitizerService> _san = new(); 
     private readonly IMapper _mapper = MapperFactory.Create();
     private readonly IInstruksService _sut;
 
     public InstruksServiceTests()
     {
-        _sut = new InstruksService(_repo.Object, _mapper);
+        _user.Setup(u => u.IsDoctor).Returns(true);           
+        _san.Setup(s => s.Sanitize(It.IsAny<string?>()))
+            .Returns<string?>(s => s ?? string.Empty); 
+        _sut = new InstruksService(_repo.Object, _mapper, _user.Object, _san.Object); 
     }
 
     [Fact]
